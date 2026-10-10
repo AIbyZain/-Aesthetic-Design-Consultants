@@ -1,0 +1,178 @@
+/* About: editorial statement, overlapping photographs, counters */
+
+.about__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 2.5rem;
+}
+
+.about__title {
+  margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  font-size: var(--step-4);
+}
+
+.about__frame-large {
+  aspect-ratio: 4 / 5;
+}
+
+.about__frame-small {
+  aspect-ratio: 4 / 5;
+}
+
+.about__cap {
+  margin-top: 0.8rem;
+  font-size: 0.66rem;
+}
+
+.about__lead {
+  font-family: var(--font-display);
+  font-size: var(--step-2);
+  font-weight: 400;
+  line-height: 1.2;
+  max-width: 24ch;
+}
+
+.about__text {
+  margin-top: 1.5rem;
+  max-width: 46ch;
+}
+
+.about__sign {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.about__sign .display {
+  font-size: 1.6rem;
+  font-style: italic;
+}
+
+.about__sign-rule {
+  width: 3rem;
+  height: 1px;
+  background: var(--accent-text);
+}
+
+/* Counters: three figures separated by hairlines, no boxes */
+.about__counters {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--rule-strong);
+}
+
+.counter {
+  padding: 1.25rem 1rem 0 0;
+}
+
+.counter + .counter {
+  padding-left: 1rem;
+  border-left: 1px solid var(--rule);
+}
+
+.counter__value {
+  display: flex;
+  align-items: baseline;
+  margin-top: 0.6rem;
+  font-size: clamp(2.6rem, 1.8rem + 3vw, 5rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.counter__suffix {
+  margin-left: 0.15em;
+  font-size: 0.4em;
+  color: var(--accent-text);
+}
+
+.counter dt {
+  font-size: 0.64rem;
+  min-height: 2.6em;
+}
+
+/* Phones: small photo overlaps the large one from the right */
+@media (max-width: 1023px) {
+  /* The small photo tucks over the lower corner of the large one */
+  .about__small {
+    width: 58%;
+    margin: -26% 0 0 auto;
+    position: relative;
+    z-index: 1;
+    order: 3;
+  }
+
+  .about__large {
+    order: 2;
+    width: 88%;
+  }
+
+  .about__body {
+    order: 4;
+  }
+
+  .about__counters {
+    order: 5;
+  }
+
+  .about__small .frame {
+    outline: 10px solid var(--bg);
+  }
+}
+
+/* Desktop: 12-column asymmetric composition with overlaps */
+@media (min-width: 1024px) {
+  .about__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    row-gap: 0;
+  }
+
+  .about__head {
+    grid-column: 1 / span 8;
+    grid-row: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about__large {
+    grid-column: 7 / span 6;
+    grid-row: 1 / span 3;
+    margin-top: clamp(9rem, 14vw, 15rem);
+  }
+
+  .about__body {
+    grid-column: 1 / span 5;
+    grid-row: 2;
+    margin-top: clamp(3rem, 5vw, 5rem);
+  }
+
+  .about__small {
+    grid-column: 3 / span 4;
+    grid-row: 3;
+    margin-top: 4rem;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about__small .frame {
+    outline: 14px solid var(--bg);
+  }
+
+  .about__counters {
+    grid-column: 1 / span 12;
+    grid-row: 4;
+    margin-top: clamp(4rem, 7vw, 7rem);
+  }
+
+  .counter {
+    padding-top: 1.75rem;
+  }
+}
+
+/* Phones: the small photo sits over the large photo's caption, so drop that caption */
+@media (max-width: 1023px) {
+  .about__large .about__cap {
+    display: none;
+  }
+}

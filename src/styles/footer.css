@@ -1,0 +1,98 @@
+/* Footer: tagline, index, studio details, full-width wordmark */
+
+.footer {
+  position: relative;
+  padding-top: clamp(4rem, 3rem + 4vw, 7rem);
+  padding-bottom: 1.5rem;
+  border-top: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.footer__top {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem 1.5rem;
+}
+
+.footer__tag {
+  grid-column: 1 / -1;
+  font-size: var(--step-2);
+  line-height: 1.15;
+}
+
+@media (min-width: 1024px) {
+  .footer__top {
+    grid-template-columns: minmax(0, 6fr) minmax(0, 2fr) minmax(0, 3fr);
+    column-gap: var(--gutter);
+  }
+
+  .footer__tag {
+    grid-column: auto;
+  }
+}
+
+.footer__col ul {
+  display: grid;
+  margin-top: 0.75rem;
+}
+
+.footer__col a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 44px;
+  transition: color 400ms var(--ease);
+}
+
+.footer__col a:hover {
+  color: var(--bronze);
+}
+
+.footer__place {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+}
+
+/* The wordmark spans the full content width */
+.footer__mark {
+  margin-top: clamp(3rem, 2rem + 4vw, 6rem);
+  font-size: clamp(7rem, 2rem + 27vw, 30rem);
+  font-weight: 300;
+  line-height: 0.78;
+  letter-spacing: -0.04em;
+  text-align: center;
+  color: var(--ivory);
+  user-select: none;
+}
+
+.motion .footer__mark span {
+  display: inline-block;
+  transform: translateY(30%);
+  opacity: 0;
+  transition:
+    transform 1600ms var(--ease),
+    opacity 1200ms var(--ease);
+}
+
+.motion .footer__mark.is-in span {
+  transform: none;
+  opacity: 1;
+}
+
+.footer__base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+
+/* room for the floating WhatsApp button on phones */
+@media (max-width: 767px) {
+  .footer {
+    padding-bottom: 6rem;
+  }
+}

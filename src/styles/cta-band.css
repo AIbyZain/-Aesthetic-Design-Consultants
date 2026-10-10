@@ -1,0 +1,42 @@
+/* CTA block after the process timeline */
+
+.cta-band {
+  padding-bottom: var(--section);
+}
+
+.cta-band__inner {
+  display: grid;
+  gap: 1.75rem;
+  align-items: center;
+  padding-block: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  border-top: 1px solid var(--ink);
+  border-bottom: 1px solid var(--line-strong);
+}
+
+@media (min-width: 1024px) {
+  .cta-band__inner {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: var(--gutter);
+  }
+}
+
+.cta-band__title {
+  font-size: var(--step-4);
+  line-height: 1.05;
+}
+
+.cta-band__title em {
+  color: var(--brass-deep);
+}
+
+.cta-band__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+@media (max-width: 420px) {
+  .cta-band__actions .btn {
+    flex: 1 1 100%;
+  }
+}

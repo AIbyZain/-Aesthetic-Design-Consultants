@@ -1,0 +1,155 @@
+/* Reviews: the one night section, ink with brass, like a cove-lit ceiling */
+
+.reviews {
+  position: relative;
+  background: var(--ink);
+  color: var(--on-ink);
+  overflow: hidden;
+}
+
+/* A thin brass line along the top edge: the LED cove */
+.reviews::before {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--brass) 20%, var(--brass) 80%, transparent);
+  opacity: 0.8;
+}
+
+.reviews::after {
+  content: '';
+  position: absolute;
+  inset: 0 0 auto 0;
+  height: 140px;
+  background: linear-gradient(rgb(162 123 79 / 0.1), transparent);
+  pointer-events: none;
+}
+
+.sheet--ink {
+  border-top-color: rgb(236 231 222 / 0.2);
+  color: var(--on-ink-muted);
+}
+
+.sheet--ink .sheet__no {
+  color: var(--brass-light);
+}
+
+.reviews__score {
+  margin-top: clamp(1.5rem, 1rem + 2vw, 2.75rem);
+  font-size: var(--step-4);
+  line-height: 1.05;
+}
+
+.reviews__star {
+  color: var(--brass-light);
+}
+
+.reviews__count {
+  color: var(--on-ink-muted);
+  font-size: 0.5em;
+  letter-spacing: 0;
+  white-space: nowrap;
+}
+
+.quote blockquote {
+  margin: 0;
+}
+
+.quote p {
+  font-size: var(--step-1);
+  line-height: 1.45;
+  text-wrap: pretty;
+}
+
+.quote--lead {
+  margin-top: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+.quote--lead blockquote p {
+  max-width: 30ch;
+}
+
+.quote--lead .quote__by {
+  max-width: 44rem;
+}
+
+@media (min-width: 1024px) {
+  .quote--lead {
+    margin-left: calc(100% / 12 * 2);
+  }
+}
+
+.quote--lead p {
+  font-size: var(--step-3);
+  line-height: 1.22;
+}
+
+.quote__by {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1rem;
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgb(236 231 222 / 0.16);
+  font-size: 0.9rem;
+}
+
+.stars {
+  color: var(--brass-light);
+  letter-spacing: 0.15em;
+  font-size: 0.85rem;
+}
+
+.quote__name {
+  font-weight: 600;
+}
+
+.quote__role {
+  color: var(--on-ink-muted);
+}
+
+.reviews__pair {
+  display: grid;
+  gap: 3rem;
+  margin-top: clamp(3.5rem, 3rem + 3vw, 6rem);
+}
+
+@media (min-width: 768px) {
+  .reviews__pair {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--gutter);
+  }
+}
+
+@media (min-width: 1024px) {
+  .reviews__pair {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .reviews__pair .quote:first-child {
+    grid-column: 1 / span 5;
+  }
+
+  .reviews__pair .quote:last-child {
+    grid-column: 7 / span 5;
+    margin-top: 4rem;
+  }
+}
+
+.reviews__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 2rem;
+  margin-top: clamp(3rem, 2.5rem + 2vw, 4.5rem);
+}
+
+.reviews__all {
+  color: var(--on-ink);
+}
+
+.reviews :focus-visible {
+  outline-color: var(--brass-light);
+}

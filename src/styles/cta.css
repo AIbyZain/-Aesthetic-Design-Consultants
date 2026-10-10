@@ -1,0 +1,97 @@
+/* Closing CTA: oversized type drifting over a faint drawing */
+
+.cta {
+  overflow: hidden;
+  border-top: 1px solid var(--rule);
+}
+
+.cta__drawing {
+  position: absolute;
+  right: -8%;
+  top: 50%;
+  width: min(1100px, 120vw);
+  color: var(--ivory);
+  opacity: 0.07;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+
+.cta__drawing .elev {
+  width: 100%;
+  height: auto;
+}
+
+.cta__drawing .e-wall {
+  fill: none;
+}
+
+.cta__inner {
+  position: relative;
+}
+
+.cta__title {
+  display: grid;
+  margin-top: clamp(2rem, 1rem + 3vw, 4rem);
+  font-size: clamp(3.4rem, 1rem + 10vw, 12rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+}
+
+.cta__line {
+  display: block;
+  padding-left: 4vw;
+  will-change: transform;
+}
+
+.cta__line--b {
+  justify-self: end;
+  padding-left: 0;
+  padding-right: 5vw;
+}
+
+@media (max-width: 767px) {
+  .cta__title {
+    white-space: normal;
+  }
+
+  .cta__line--b {
+    justify-self: start;
+  }
+}
+
+.cta__foot {
+  display: grid;
+  gap: 2rem;
+  margin-top: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+@media (min-width: 1024px) {
+  .cta__foot {
+    grid-template-columns: minmax(0, 1fr) auto;
+    align-items: end;
+  }
+}
+
+.cta__text {
+  max-width: 40ch;
+  font-size: var(--step-1);
+}
+
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.btn--lg {
+  min-height: 64px;
+  padding: 0 2.2rem;
+}
+
+@media (max-width: 479px) {
+  .cta__actions .magnetic,
+  .cta__actions .btn {
+    width: 100%;
+  }
+}

@@ -1,0 +1,118 @@
+/* Process: sticky heading + scroll-filled timeline */
+
+.process__grid {
+  display: grid;
+  gap: clamp(3rem, 2rem + 4vw, 5rem);
+}
+
+.process__title {
+  margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  font-size: var(--step-4);
+}
+
+.process__intro {
+  margin-top: 1.75rem;
+  max-width: 34ch;
+}
+
+@media (min-width: 1024px) {
+  .process__grid {
+    grid-template-columns: minmax(0, 5fr) minmax(0, 6fr);
+    column-gap: clamp(3rem, 7vw, 8rem);
+    align-items: start;
+  }
+
+  .process__head {
+    position: sticky;
+    top: calc(var(--header-h) + 3rem);
+  }
+}
+
+.steps {
+  position: relative;
+  padding-left: clamp(3.5rem, 2rem + 4vw, 6rem);
+}
+
+.steps__spine {
+  position: absolute;
+  left: 7px;
+  top: 0.6rem;
+  bottom: 0.6rem;
+  width: 1px;
+  background: var(--rule);
+}
+
+.steps__fill {
+  position: absolute;
+  inset: 0;
+  background: var(--bronze);
+  transform: scaleY(0);
+  transform-origin: top;
+}
+
+.steps__list {
+  display: grid;
+  gap: clamp(3rem, 2rem + 4vw, 6rem);
+}
+
+.step {
+  position: relative;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.step__node {
+  position: absolute;
+  left: calc(-1 * clamp(3.5rem, 2rem + 4vw, 6rem) + 2px);
+  top: 0.55rem;
+  width: 11px;
+  height: 11px;
+  background: var(--bg);
+  border: 1px solid var(--rule-strong);
+  transform: rotate(45deg);
+  transition:
+    background-color 600ms var(--ease),
+    border-color 600ms var(--ease);
+}
+
+.step__no {
+  font-size: clamp(3.5rem, 2.5rem + 4vw, 6.5rem);
+  line-height: 0.9;
+  color: transparent;
+  -webkit-text-stroke: 1px var(--rule-strong);
+  transition:
+    color 900ms var(--ease),
+    -webkit-text-stroke-color 900ms var(--ease);
+}
+
+.step__title {
+  font-size: var(--step-2);
+  line-height: 1.1;
+}
+
+.step__text {
+  margin-top: 0.6rem;
+  max-width: 40ch;
+}
+
+.step__body {
+  transition:
+    opacity 900ms var(--ease),
+    transform 900ms var(--ease);
+}
+
+/* Lit when the scroll line reaches the step */
+.step.is-lit .step__node {
+  background: var(--bronze);
+  border-color: var(--bronze);
+}
+
+.step.is-lit .step__no {
+  color: var(--bronze);
+  -webkit-text-stroke-color: var(--bronze);
+}
+
+.motion .step:not(.is-lit) .step__body {
+  opacity: 0.35;
+  transform: translateX(10px);
+}

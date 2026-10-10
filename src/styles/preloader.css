@@ -1,0 +1,185 @@
+/* Preloader: drawing, name, counter, hairline progress, curtain exit */
+
+.preloader {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-preloader);
+  background: var(--charcoal);
+  color: var(--ivory);
+  transition: transform 750ms var(--ease-io);
+}
+
+/* A bronze edge rides along the bottom of the curtain as it lifts */
+.preloader::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  background: var(--bronze);
+  opacity: 0;
+  transition: opacity 300ms linear;
+}
+
+.preloader.is-leaving {
+  transform: translateY(-100%);
+}
+
+.preloader.is-leaving::after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .preloader {
+    transition: opacity 200ms linear;
+  }
+
+  .preloader.is-leaving {
+    transform: none;
+    opacity: 0;
+  }
+}
+
+.preloader__inner {
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr auto auto;
+  height: 100%;
+  padding-top: clamp(3rem, 10vh, 7rem);
+  padding-bottom: clamp(1.5rem, 5vh, 3rem);
+  transition: transform 750ms var(--ease-io);
+}
+
+.preloader.is-leaving .preloader__inner {
+  transform: translateY(18vh);
+}
+
+.preloader__drawing {
+  display: grid;
+  place-items: center;
+}
+
+.preloader__drawing .elev {
+  width: min(560px, 82vw);
+  height: auto;
+}
+
+.preloader__name {
+  margin-top: 2rem;
+  font-size: clamp(1.9rem, 1rem + 3.6vw, 4.2rem);
+  line-height: 1.1;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media (max-width: 520px) {
+  .preloader__name {
+    white-space: normal;
+  }
+}
+
+.preloader__name span {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(0.4em);
+  animation: letter-in 700ms var(--ease) forwards;
+  animation-delay: calc(240ms + var(--i) * 28ms);
+}
+
+@keyframes letter-in {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.preloader__foot {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.preloader__tag {
+  color: var(--smoke);
+}
+
+.preloader__count {
+  font-size: clamp(3.2rem, 2rem + 6vw, 7.5rem);
+  line-height: 0.85;
+  font-variant-numeric: tabular-nums;
+}
+
+.preloader__pct {
+  font-size: 0.35em;
+  margin-left: 0.15em;
+  color: var(--bronze);
+  vertical-align: top;
+}
+
+.preloader__track {
+  display: block;
+  height: 1px;
+  margin-top: 1.25rem;
+  background: rgb(238 232 221 / 0.12);
+}
+
+.preloader__bar {
+  display: block;
+  height: 100%;
+  background: var(--bronze);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+/* Shared elevation styling: ivory hairlines, bronze accents */
+.elev {
+  overflow: visible;
+}
+
+.elev .e-s {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 0.9;
+  vector-effect: non-scaling-stroke;
+}
+
+.elev .e-fine {
+  stroke-width: 0.6;
+  opacity: 0.8;
+}
+
+.elev .e-heavy {
+  stroke-width: 1.4;
+}
+
+.elev .e-dash {
+  stroke: var(--bronze);
+  stroke-width: 0.6;
+  opacity: 0.7;
+}
+
+.elev .e-accent {
+  stroke: var(--bronze);
+}
+
+.elev .e-wall {
+  fill: var(--charcoal);
+}
+
+/* Draw-in: each group starts after the previous one */
+.elev--draw .e-s {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw 1100ms var(--ease-soft) forwards;
+  animation-delay: calc(var(--g, 0) * 150ms);
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}

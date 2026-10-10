@@ -1,0 +1,80 @@
+/* Custom cursor (desktop, fine pointer only) */
+
+.cursor {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-cursor);
+  pointer-events: none;
+}
+
+.cursor__dot,
+.cursor__ring {
+  position: fixed;
+  left: 0;
+  top: 0;
+  opacity: 0;
+  transition: opacity 300ms var(--ease);
+  will-change: transform;
+}
+
+.cursor__dot.is-visible,
+.cursor__ring.is-visible {
+  opacity: 1;
+}
+
+.cursor__dot {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: var(--bronze);
+}
+
+/* The ring is drawn inside a fixed 0x0 anchor so scaling stays centred */
+.cursor__ring {
+  width: 0;
+  height: 0;
+}
+
+.cursor__ring::before {
+  content: '';
+  position: absolute;
+  left: -18px;
+  top: -18px;
+  width: 36px;
+  height: 36px;
+  border: 1px solid rgb(238 232 221 / 0.45);
+  transform: rotate(45deg) scale(0.7); /* a diamond, matching the square geometry of the site */
+  transition:
+    transform 500ms var(--ease),
+    background-color 500ms var(--ease),
+    border-color 500ms var(--ease);
+}
+
+.cursor__ring[data-mode='hot']::before {
+  transform: rotate(45deg) scale(1.1);
+  border-color: var(--bronze);
+}
+
+.cursor__ring[data-mode='view']::before,
+.cursor__ring[data-mode='drag']::before {
+  transform: rotate(45deg) scale(2.4);
+  background: var(--ivory);
+  border-color: var(--ivory);
+}
+
+.cursor__ring.is-down::before {
+  transform: rotate(45deg) scale(0.55);
+}
+
+.cursor__label {
+  position: absolute;
+  left: 0;
+  top: 0;
+  transform: translate(-50%, -50%);
+  font-size: 0.66rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--charcoal);
+  white-space: nowrap;
+}

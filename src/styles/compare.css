@@ -1,0 +1,213 @@
+/* Render to reality: comparison slider */
+
+.compare__head {
+  display: grid;
+  gap: 2rem;
+  align-items: end;
+}
+
+@media (min-width: 1024px) {
+  .compare__head {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+}
+
+.compare__title {
+  margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  font-size: var(--step-4);
+}
+
+.compare__switch {
+  display: inline-flex;
+  justify-self: start;
+  border: 1px solid var(--rule-strong);
+}
+
+.compare__switch button {
+  min-height: 48px;
+  padding: 0 1.3rem;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+  transition:
+    background-color 500ms var(--ease),
+    color 500ms var(--ease);
+}
+
+.compare__switch button + button {
+  border-left: 1px solid var(--rule-strong);
+}
+
+.compare__switch button[aria-pressed='true'] {
+  background: var(--ivory);
+  color: var(--charcoal);
+}
+
+.compare__reveal {
+  margin-top: clamp(2.5rem, 2rem + 3vw, 5rem);
+}
+
+/* Desktop: a contained stage set to the right, legend and note beside it */
+@media (min-width: 1024px) {
+  .compare__body {
+    display: grid;
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: var(--gutter);
+    align-items: end;
+  }
+
+  .compare__body .compare__reveal {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+  }
+
+  .compare__body .compare__legend {
+    grid-column: 1;
+    grid-row: 1;
+    flex-direction: column;
+    gap: 2rem;
+  }
+
+  .compare__body .compare__legend p:last-child {
+    text-align: left;
+  }
+
+  .compare__body .compare__note {
+    grid-column: 1;
+    grid-row: 2;
+  }
+}
+
+.compare__stage {
+  position: relative;
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  background: var(--charcoal-2);
+  touch-action: pan-y;
+  user-select: none;
+}
+
+@media (min-width: 768px) {
+  .compare__stage {
+    aspect-ratio: 4 / 3;
+  }
+}
+
+.compare__layer {
+  position: absolute;
+  inset: 0;
+}
+
+.compare__layer img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+}
+
+.compare__layer--render {
+  clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+}
+
+.motion .compare__layer {
+  animation: cmp-fade 900ms var(--ease-soft) both;
+}
+
+@keyframes cmp-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+/* The sweep hint eases the divider instead of jumping */
+.compare__stage.is-hinting .compare__layer--render {
+  transition: clip-path 800ms var(--ease-io);
+}
+
+.compare__stage.is-hinting .compare__handle {
+  transition: left 800ms var(--ease-io);
+}
+
+.compare__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: var(--pos);
+  width: 44px;
+  margin-left: -22px;
+  display: grid;
+  place-items: center;
+  cursor: ew-resize;
+}
+
+.compare__handle::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 1px;
+  background: var(--ivory);
+}
+
+.compare__knob {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  width: 64px;
+  height: 64px;
+  background: var(--charcoal);
+  border: 1px solid var(--bronze);
+  color: var(--ivory);
+  font-size: 1.2rem;
+  transition: transform 500ms var(--ease);
+}
+
+.compare__stage:hover .compare__knob,
+.compare__handle:focus-visible .compare__knob {
+  transform: scale(1.08);
+}
+
+.compare__handle:focus-visible {
+  outline: none;
+}
+
+.compare__handle:focus-visible .compare__knob {
+  outline: 1px solid var(--ivory);
+  outline-offset: 4px;
+}
+
+.compare__legend {
+  display: flex;
+  justify-content: space-between;
+  gap: 1.5rem;
+  margin-top: 1.25rem;
+}
+
+.compare__legend p {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.compare__legend p:last-child {
+  text-align: right;
+}
+
+.compare__legend .display {
+  font-size: var(--step-2);
+  line-height: 1.1;
+}
+
+.compare__tag {
+  color: var(--bronze);
+}
+
+.compare__note {
+  margin-top: 1.5rem;
+  max-width: 60ch;
+  font-size: 0.82rem;
+}

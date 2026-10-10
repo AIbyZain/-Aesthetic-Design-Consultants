@@ -1,0 +1,164 @@
+/* Testimonials: score on the left, large-quote slider on the right */
+
+.testi {
+  background: var(--charcoal-2);
+}
+
+.testi__grid {
+  display: grid;
+  gap: clamp(3rem, 2rem + 4vw, 5rem);
+}
+
+@media (min-width: 1024px) {
+  .testi__grid {
+    grid-template-columns: minmax(0, 4fr) minmax(0, 8fr);
+    column-gap: clamp(3rem, 6vw, 7rem);
+  }
+}
+
+.testi__score {
+  display: grid;
+  margin-top: clamp(1.75rem, 1rem + 2.5vw, 3rem);
+  font-weight: 400;
+}
+
+.testi__num {
+  font-size: clamp(5rem, 3rem + 8vw, 10rem);
+  line-height: 0.85;
+}
+
+.testi__stars {
+  margin-top: 1rem;
+  color: var(--bronze);
+  letter-spacing: 0.3em;
+  font-size: 1rem;
+}
+
+.testi__count {
+  margin-top: 0.75rem;
+}
+
+.testi__all {
+  margin-top: 1.5rem;
+}
+
+.testi__stage {
+  position: relative;
+  display: grid;
+  align-content: space-between;
+  gap: 2.5rem;
+  padding-top: clamp(4.5rem, 3rem + 5vw, 8rem);
+}
+
+.testi__mark {
+  position: absolute;
+  top: 0;
+  left: -0.4rem;
+  font-size: clamp(8rem, 5rem + 10vw, 15rem);
+  line-height: 1;
+  color: var(--bronze);
+  opacity: 0.35;
+  pointer-events: none;
+}
+
+.testi__slides {
+  display: grid;
+}
+
+.testi__quote {
+  position: relative;
+  grid-area: 1 / 1;
+  visibility: hidden;
+}
+
+.testi__quote.is-active {
+  visibility: visible;
+}
+
+.testi__quote p {
+  font-size: clamp(1.7rem, 1.1rem + 2.1vw, 3.1rem);
+  line-height: 1.18;
+  letter-spacing: -0.012em;
+  text-wrap: pretty;
+}
+
+.testi__quote figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 1.25rem;
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.testi__name {
+  font-weight: 600;
+}
+
+.motion .testi__quote.is-active p {
+  animation: quote-in 1100ms var(--ease) both;
+}
+
+.motion .testi__quote.is-active figcaption {
+  animation: quote-in 1100ms var(--ease) 120ms both;
+}
+
+@keyframes quote-in {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+    filter: blur(4px);
+  }
+}
+
+.testi__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.testi__ticks {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.testi__ticks span {
+  width: 28px;
+  height: 1px;
+  background: var(--rule-strong);
+  transition:
+    background-color 500ms var(--ease),
+    width 700ms var(--ease);
+}
+
+.testi__ticks span.is-on {
+  width: 56px;
+  background: var(--bronze);
+}
+
+.testi__btns {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.testi__btn {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--rule-strong);
+  font-size: 1.1rem;
+  transition:
+    background-color 500ms var(--ease),
+    color 500ms var(--ease),
+    border-color 500ms var(--ease);
+}
+
+.testi__btn:hover,
+.testi__btn:focus-visible {
+  background: var(--ivory);
+  color: var(--charcoal);
+  border-color: var(--ivory);
+}

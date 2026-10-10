@@ -1,0 +1,89 @@
+/* Intro statement + facts */
+
+.intro__body {
+  margin-top: clamp(2rem, 1.5rem + 2.5vw, 3.5rem);
+  align-items: end;
+}
+
+@media (min-width: 1024px) {
+  .intro__statement {
+    grid-column: 1 / span 8;
+  }
+
+  .intro__facts {
+    grid-column: 9 / span 4;
+  }
+}
+
+.intro__text {
+  font-size: var(--step-3);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  max-width: 32ch;
+  text-wrap: pretty;
+}
+
+.intro__sign {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.intro__sign > span:last-child {
+  display: grid;
+  line-height: 1.35;
+  font-size: 0.9rem;
+}
+
+.intro__rule {
+  width: 2.5rem;
+  height: 1px;
+  background: var(--brass);
+}
+
+.intro__name {
+  font-size: 1.35rem;
+  font-style: italic;
+}
+
+/* Facts: 2 x 2 with hairlines, the last spanning the full width */
+.intro__facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border-top: 1px solid var(--line-strong);
+}
+
+.fact {
+  padding: 1.1rem 0 1.25rem;
+  border-bottom: 1px solid var(--line);
+}
+
+.fact:nth-child(-n + 2):nth-child(odd) {
+  padding-right: 1rem;
+  border-right: 1px solid var(--line);
+}
+
+.fact:nth-child(even) {
+  padding-left: 1rem;
+}
+
+.fact.fact--wide {
+  grid-column: 1 / -1;
+  padding-left: 0;
+}
+
+.fact dd {
+  margin: 0.35rem 0 0;
+  font-size: var(--step-2);
+  line-height: 1.15;
+}
+
+.fact--wide dd {
+  font-size: var(--step-1);
+}
+
+/* Less dead space before the portfolio. (.intro.section beats .section.) */
+.intro.section {
+  padding-bottom: calc(var(--section) / 2);
+}

@@ -1,0 +1,236 @@
+/* Selected work: editorial staggered gallery */
+
+.work__head {
+  display: grid;
+  gap: 1.75rem;
+}
+
+.work__title {
+  font-size: var(--step-4);
+}
+
+.work__filters {
+  display: flex;
+  gap: clamp(1.25rem, 3vw, 3rem);
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--rule);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.work__filters::-webkit-scrollbar {
+  display: none;
+}
+
+.work__filter {
+  position: relative;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 0.35rem;
+  min-height: 52px;
+  padding-block: 0.75rem;
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.05rem + 0.8vw, 1.75rem);
+  font-weight: 400;
+  color: var(--muted);
+  white-space: nowrap;
+  transition: color 400ms var(--ease);
+}
+
+.work__filter sup {
+  font-family: var(--font-text);
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+  color: var(--bronze);
+}
+
+.work__filter::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -0.3rem;
+  height: 1px;
+  background: var(--bronze);
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform 700ms var(--ease);
+}
+
+.work__filter:hover,
+.work__filter[aria-pressed='true'] {
+  color: var(--fg);
+}
+
+.work__filter[aria-pressed='true'] {
+  font-style: italic;
+}
+
+.work__filter[aria-pressed='true']::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* Gallery */
+.work__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(3rem, 2rem + 4vw, 5rem);
+  margin-top: clamp(3rem, 2rem + 4vw, 6rem);
+}
+
+/* Phones: alternate full-width and inset-right tiles */
+@media (max-width: 1023px) {
+  .slot-b,
+  .slot-d,
+  .slot-f {
+    width: 78%;
+    margin-left: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .work__grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    column-gap: var(--gutter);
+    row-gap: clamp(4rem, 7vw, 8rem);
+  }
+
+  .slot-a {
+    grid-column: 1 / span 7;
+  }
+
+  .slot-b {
+    grid-column: 9 / span 4;
+    margin-top: clamp(6rem, 12vw, 13rem);
+  }
+
+  /* Overlap: lifted into the large image above */
+  .slot-c {
+    grid-column: 2 / span 4;
+    margin-top: clamp(-9rem, -8vw, -4rem);
+    position: relative;
+    z-index: 1;
+  }
+
+  .slot-d {
+    grid-column: 7 / span 6;
+    margin-top: clamp(4rem, 8vw, 9rem);
+  }
+
+  .slot-e {
+    grid-column: 1 / span 5;
+  }
+
+  .slot-f {
+    grid-column: 8 / span 4;
+    margin-top: clamp(-6rem, -5vw, -3rem);
+  }
+}
+
+.work__item {
+  min-width: 0;
+}
+
+.tile {
+  display: block;
+  width: 100%;
+  text-align: left;
+}
+
+.tile__reveal {
+  display: block;
+}
+
+.tile__frame {
+  display: block;
+}
+
+.tile__frame img {
+  transition:
+    transform 1400ms var(--ease),
+    filter 800ms var(--ease);
+  filter: saturate(0.85) brightness(0.94);
+}
+
+.tile:hover .tile__frame img,
+.tile:focus-visible .tile__frame img {
+  transform: scale(1.06);
+  filter: saturate(1) brightness(1);
+}
+
+/* An inner bronze hairline frame draws in on hover */
+.tile__frame::after {
+  content: '';
+  position: absolute;
+  inset: 14px;
+  border: 1px solid rgb(166 134 90 / 0.8);
+  opacity: 0;
+  transform: scale(1.04);
+  transition:
+    opacity 600ms var(--ease),
+    transform 900ms var(--ease);
+  pointer-events: none;
+}
+
+.tile:hover .tile__frame::after,
+.tile:focus-visible .tile__frame::after {
+  opacity: 1;
+  transform: none;
+}
+
+.tile__caption {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: baseline;
+  gap: 0.25rem 1rem;
+  margin-top: 1.1rem;
+}
+
+.tile__no {
+  color: var(--bronze);
+}
+
+.tile__title {
+  font-size: var(--step-2);
+  line-height: 1.1;
+  transition:
+    transform 700ms var(--ease),
+    color 400ms var(--ease);
+}
+
+.tile:hover .tile__title {
+  font-style: italic;
+  transform: translateX(0.4rem);
+}
+
+.tile__meta {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 1.25rem;
+  font-size: 0.64rem;
+}
+
+.tile__type {
+  color: var(--bronze);
+}
+
+/* After the reveal, hand the image transform back to the hover zoom.
+   (Raised specificity beats the generic image-reveal rules in base.css.) */
+.motion .tile .tile__reveal.is-in > .tile__frame img {
+  transition:
+    transform 1400ms var(--ease),
+    filter 800ms var(--ease);
+}
+
+.motion .tile:hover .tile__reveal.is-in > .tile__frame img,
+.motion .tile:focus-visible .tile__reveal.is-in > .tile__frame img {
+  transform: scale(1.06);
+}
+
+/* The comparison section follows directly: trim the gap (.work.section beats .section) */
+.work.section {
+  padding-bottom: calc(var(--section) * 0.55);
+}
